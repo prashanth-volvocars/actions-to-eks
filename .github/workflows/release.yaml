@@ -58,4 +58,4 @@ jobs:
           
       - name: Deploy To Cluster
         shell: bash
-        run: kubectl apply -n gpe -f cloud/
+        run: kubectl apply -n default -f cloud/
