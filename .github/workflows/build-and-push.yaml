@@ -2,7 +2,7 @@ name: CI
 
 on:
   pull_request:
-    branches: [main]
+    branches: [master]
 
 env:
   IMAGE_NAME: ghcr.io/${{ github.repository }}
@@ -54,11 +54,9 @@ jobs:
 
           # Get Short commit id
           VERSION=${GITHUB_SHA::8}
-          BRANCH=${GITHUB_REF_NAME}
 
           echo IMAGE_NAME=$IMAGE_NAME
           echo VERSION=$VERSION
-          echo BRANCH=$BRANCH
 
           docker tag $IMAGE_NAME $IMAGE_NAME:$VERSION 
           docker push $IMAGE_NAME:$VERSION

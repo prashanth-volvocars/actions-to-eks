@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: actions-to-eks-deployment
+  namespace: default
+  labels:
+    app: actions-to-eks-sample-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: actions-to-eks-sample-app
+  template:
+    metadata:
+      labels:
+        app: actions-to-eks-sample-app
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+                - arm64
+      containers:
+      - name: actions-to-eks
+        image: ghcr.io/prashanth-volvocars/actions-to-eks:${COMMIT}
+        ports:
+        - name: http
+          containerPort: 80
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            cpu: 256m
+            memory: 512Mi
+          requests:
+            cpu: 256m
+            memory: 512Mi
