@@ -2,7 +2,7 @@ name: CD
 
 on:
   push:
-    branches: [main]
+    branches: [master]
 
 jobs:
   pre-release:
@@ -12,14 +12,15 @@ jobs:
   deploy:
     name: Deploy
     needs: pre-release
-    permissions: write-all
+    permissions:
+      id-token: write
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
       max-parallel: 2
       matrix:
-        environment: [Dev, QA, Prod]
-        region: [eu-west-1, us-west-2]
+        environment: [Dev]
+        region: [ap-south-1]
     environment:
       name: ${{ matrix.environment }}
     steps:
@@ -33,7 +34,7 @@ jobs:
         with:
           tokenPrefix: '${'
           tokenSuffix: '}'
-          files: '["cloud/deploy.yaml"]'
+          files: '["deploy.yaml"]'
         env:
           COMMIT: ${{ needs.pre-release.outputs.commit }}
 
