@@ -33,7 +33,7 @@ jobs:
           echo "${{ github.token }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
           # Get Short commit id
-          VERSION=${GITHUB_SHA::8}
+          VERSION=${${{ github.sha }}::8}
 
           echo IMAGE_NAME=$IMAGE_NAME
           echo VERSION=$VERSION
