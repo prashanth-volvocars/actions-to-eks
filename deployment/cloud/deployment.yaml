@@ -16,7 +16,7 @@ spec:
         app: actions-to-eks-sample-app
       annotations:
         prometheus.io/scrape: "true"
-        prometheus.io/port: "8080"
+        prometheus.io/port: "3000"
     spec:
       affinity:
         nodeAffinity:
