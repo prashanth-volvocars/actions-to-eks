@@ -21,7 +21,7 @@ jobs:
       max-parallel: 2
       matrix:
         environment: [Dev]
-        region: [ap-south-1]
+        region: [eu-west-1]
     environment:
       name: ${{ matrix.environment }}
     steps:
